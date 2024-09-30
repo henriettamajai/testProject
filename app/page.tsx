@@ -5,7 +5,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import Sidebar from "@/components/Sidebar";
 import { Divider } from "@nextui-org/divider";
-import { Input, Button, Checkbox } from "@nextui-org/react";
+import { Input, Button, Checkbox, Select, SelectItem } from "@nextui-org/react";
 import { EnvelopeIcon, PhoneIcon, PencilIcon, PlusIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 
@@ -176,14 +176,17 @@ export default function Page() {
           {/* Locale Section */}
           <div className="flex items-start w-full mb-6 gap-[32px]">
             <span className="text-[14px] font-semibold min-w-[200px]">Locale</span>
-            <select
+            <Select
               {...registerPersonal("locale")}
-              className="border border-[#D0D5DD] bg-white text-default-400 rounded-md p-2 flex-1"
+              placeholder="Select locale"
+              aria-label="Select locale"
+              className="flex-1"
+              variant="bordered"
             >
-              <option value="HU">HU</option>
-              <option value="RO">RO</option>
-              <option value="EN">EN</option>
-            </select>
+              <SelectItem key="hu" value="HU">Hungarian (HU)</SelectItem>
+              <SelectItem key="ro" value="RO">Romanian (RO)</SelectItem>
+              <SelectItem key="en" value="EN">English (EN)</SelectItem>
+            </Select>
           </div>
           {personalErrors.locale && <span className="text-red-500">{personalErrors.locale.message}</span>}
 
