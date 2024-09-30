@@ -114,22 +114,24 @@ export default function Page() {
           <div className="flex items-start w-full mb-6 gap-[32px]">
             <span className="text-[14px] font-semibold min-w-[200px]">Name</span>
             <div className="flex flex-1 gap-[32px]">
-              <Input
+            <Input
                 {...registerPersonal("firstName")}
                 placeholder="First Name"
                 fullWidth
                 variant="bordered"
+                isInvalid={!!personalErrors.firstName}
+                errorMessage={personalErrors.firstName?.message}
               />
               <Input
                 {...registerPersonal("lastName")}
                 placeholder="Last Name"
                 fullWidth
                 variant="bordered"
+                isInvalid={!!personalErrors.lastName}
+                errorMessage={personalErrors.lastName?.message}
               />
             </div>
           </div>
-          {personalErrors.firstName && <span className="text-red-500">{personalErrors.firstName.message}</span>}
-          {personalErrors.lastName && <span className="text-red-500">{personalErrors.lastName.message}</span>}
 
           <Divider className="my-6 bg-[#EAECF0]" />
 
@@ -141,10 +143,11 @@ export default function Page() {
               placeholder="Email Address"
               fullWidth
               variant="bordered"
+              isInvalid={!!personalErrors.email}
+              errorMessage={personalErrors.email?.message}
               startContent={<EnvelopeIcon className="h-5 w-5 text-[#667085] pointer-events-none flex-shrink-0" />}
             />
           </div>
-          {personalErrors.email && <span className="text-red-500">{personalErrors.email.message}</span>}
 
           <Divider className="my-6 bg-[#EAECF0]" />
 
@@ -166,11 +169,11 @@ export default function Page() {
               placeholder="Phone Number"
               fullWidth
               variant="bordered"
+              isInvalid={!!personalErrors.phone}
+              errorMessage={personalErrors.phone?.message}
               startContent={<PhoneIcon className="h-5 w-5 text-[#667085] pointer-events-none flex-shrink-0" />}
             />
           </div>
-          {personalErrors.phone && <span className="text-red-500">{personalErrors.phone.message}</span>}
-
           <Divider className="my-6 bg-[#EAECF0]" />
 
           {/* Locale Section */}

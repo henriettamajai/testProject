@@ -1,3 +1,29 @@
 {
-  "pages": {}
+  "pages": {
+    "/page": [
+      "static/chunks/[root of the server]__e2ab11._.css",
+      "static/chunks/node_modules_1fe405._.js",
+      "static/chunks/app_9e4cf7._.js",
+      "static/chunks/app_layout_tsx_da0204._.js",
+      "static/chunks/_414c00._.js",
+      "static/chunks/node_modules_react-hook-form_dist_index_esm_mjs_835d51._.js",
+      "static/chunks/node_modules_@nextui-org_75d8d2._.js",
+      "static/chunks/node_modules_@react-aria_4a9137._.js",
+      "static/chunks/node_modules_framer-motion_dist_es_f7830f._.js",
+      "static/chunks/node_modules_@nextui-org_c1f68d._.js",
+      "static/chunks/node_modules_@react-aria_464150._.js",
+      "static/chunks/node_modules_5eaeb8._.js",
+      "static/chunks/app_page_tsx_9e3b97._.js",
+      "static/chunks/node_modules_next_dist_compiled_react_a1d82d._.js",
+      "static/chunks/node_modules_next_dist_compiled_react-dom_cjs_react-dom_development_c9a189.js",
+      "static/chunks/node_modules_next_dist_compiled_react-dom_87a050._.js",
+      "static/chunks/node_modules_next_dist_compiled_e13b54._.js",
+      "static/chunks/node_modules_next_dist_client_8bb71d._.js",
+      "static/chunks/node_modules_next_dist_38ecb8._.js",
+      "static/chunks/ed0b0_@swc_helpers_cjs_d9e50e._.js",
+      "static/chunks/[turbopack]_dev_client_hmr-client_ts_e1d56b._.js",
+      "static/chunks/node_modules_next_dist_esm_build_templates_app-page_df6baa.js",
+      "static/chunks/node_modules_next_dist_esm_build_templates_app-page_fab00a.js"
+    ]
+  }
 }
