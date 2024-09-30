@@ -90,8 +90,6 @@ export default function Page() {
   const onSubmitAddress = (data) => {
     console.log("New Address:", data);
     resetAddress();
-
-    
     setShowNewAddressForm(false);
   };
 
@@ -191,7 +189,6 @@ export default function Page() {
               <SelectItem key="en" value="EN">English (EN)</SelectItem>
             </Select>
           </div>
-          {personalErrors.locale && <span className="text-red-500">{personalErrors.locale.message}</span>}
 
           <Divider className="my-6 bg-[#EAECF0]" />
 
@@ -228,29 +225,59 @@ export default function Page() {
                   Add new address
                 </Button>
               )}
-
+              {/* Address form */}
               {showNewAddressForm && (
                 <form onSubmit={handleSubmitAddress(onSubmitAddress)} className="mt-4">
                   <h3 className="text-sm font-semibold text-[#344054] mb-4">Add New Address</h3>
                   <div className="mb-4">
-                    <Input {...registerAddress("newAddressCountry")} placeholder="Country" fullWidth variant="bordered" />
-                    {addressErrors.newAddressCountry && <span className="text-red-500">{addressErrors.newAddressCountry.message}</span>}
+                  <Input
+                    {...registerAddress("newAddressCountry")}
+                    placeholder="Country"
+                    fullWidth
+                    variant="bordered"
+                    isInvalid={!!addressErrors.newAddressCountry}
+                    errorMessage={addressErrors.newAddressCountry?.message}
+                  />
                   </div>
                   <div className="mb-4">
-                    <Input {...registerAddress("newAddressCity")} placeholder="City" fullWidth variant="bordered" />
-                    {addressErrors.newAddressCity && <span className="text-red-500">{addressErrors.newAddressCity.message}</span>}
+                  <Input
+                    {...registerAddress("newAddressCity")}
+                    placeholder="City"
+                    fullWidth
+                    variant="bordered"
+                    isInvalid={!!addressErrors.newAddressCity}
+                    errorMessage={addressErrors.newAddressCity?.message}
+                  />
                   </div>
                   <div className="mb-4">
-                    <Input {...registerAddress("newAddressCounty")} placeholder="County" fullWidth variant="bordered" />
-                    {addressErrors.newAddressCounty && <span className="text-red-500">{addressErrors.newAddressCounty.message}</span>}
+                  <Input
+                    {...registerAddress("newAddressCounty")}
+                    placeholder="County"
+                    fullWidth
+                    variant="bordered"
+                    isInvalid={!!addressErrors.newAddressCounty}
+                    errorMessage={addressErrors.newAddressCounty?.message}
+                  />
                   </div>
                   <div className="mb-4">
-                    <Input {...registerAddress("newAddressPostalCode")} placeholder="Postal Code" fullWidth variant="bordered" />
-                    {addressErrors.newAddressPostalCode && <span className="text-red-500">{addressErrors.newAddressPostalCode.message}</span>}
+                  <Input
+                    {...registerAddress("newAddressPostalCode")}
+                    placeholder="Postal Code"
+                    fullWidth
+                    variant="bordered"
+                    isInvalid={!!addressErrors.newAddressPostalCode}
+                    errorMessage={addressErrors.newAddressPostalCode?.message}
+                  />
                   </div>
                   <div className="mb-4">
-                    <Input {...registerAddress("newAddressStreet")} placeholder="Street" fullWidth variant="bordered" />
-                    {addressErrors.newAddressStreet && <span className="text-red-500">{addressErrors.newAddressStreet.message}</span>}
+                  <Input
+                    {...registerAddress("newAddressStreet")}
+                    placeholder="Street"
+                    fullWidth
+                    variant="bordered"
+                    isInvalid={!!addressErrors.newAddressStreet}
+                    errorMessage={addressErrors.newAddressStreet?.message}
+                  />
                   </div>
                   <Button type="submit" className="bg-[#1D48E5] text-white font-semibold">Submit Address</Button>
                   <Button
@@ -293,7 +320,7 @@ export default function Page() {
                         Edit
                       </Button>
                     </div>
-                  ))}
+                  ))}console.log(addressErrors);
 
                   {!showNewCompanyForm && (
                     <Button
@@ -316,6 +343,8 @@ export default function Page() {
                           placeholder="Company Name"
                           fullWidth
                           variant="bordered"
+                          isInvalid={!!companyErrors.newCompanyName}
+                          errorMessage={companyErrors.newCompanyName?.message}
                         />
                       </div>
                       <div className="mb-4">
@@ -324,6 +353,8 @@ export default function Page() {
                           placeholder="Company Code"
                           fullWidth
                           variant="bordered"
+                          isInvalid={!!companyErrors.newCompanyCode}
+                          errorMessage={companyErrors.newCompanyCode?.message}
                         />
                       </div>
                       <Button type="submit" className="bg-[#1D48E5] text-white font-semibold"> Submit Company </Button>
