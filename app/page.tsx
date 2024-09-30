@@ -5,7 +5,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import Sidebar from "@/components/Sidebar";
 import { Divider } from "@nextui-org/divider";
-import { Input, Button } from "@nextui-org/react";
+import { Input, Button, Checkbox } from "@nextui-org/react";
 import { EnvelopeIcon, PhoneIcon, PencilIcon, PlusIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 
@@ -71,6 +71,7 @@ export default function Page() {
 
   const [showNewAddressForm, setShowNewAddressForm] = useState(false);
   const [showNewCompanyForm, setShowNewCompanyForm] = useState(false);
+  const [isRepresentingCompany, setIsRepresentingCompany] = useState(false);
 
   const addresses = [
     { country: "RO", city: "Cluj Napoca", county: "Cluj", postalCode: "400001", street: "Strada Memorandului" },
@@ -264,53 +265,69 @@ export default function Page() {
           <div className="flex items-start w-full mb-6 gap-[32px]">
             <span className="text-[14px] font-semibold min-w-[200px]">Companies</span>
             <div>
-              {companies.map((company, index) => (
-                <div key={index} className="border border-[#D0D5DD] p-4 rounded-md relative w-[343px] mb-4">
-                  <h3 className="text-sm font-semibold text-[#344054]">Company {index + 1}</h3>
-                  <p>{company.name}</p>
-                  <p>{company.code}</p>
-                  <Button
-                    variant="light"
-                    startContent={<PencilIcon className="h-4 w-4 text-[#344054]" />}
-                    className="absolute top-2 right-2 flex items-center gap-1 text-[#344054]"
-                    onClick={() => alert('Edit company clicked!')}
-                  >
-                    Edit
-                  </Button>
+              <Checkbox
+                isSelected={isRepresentingCompany}
+                onChange={() => setIsRepresentingCompany(!isRepresentingCompany)}
+              >
+                Are you representing a company?
+              </Checkbox>
+
+              {isRepresentingCompany && (
+                <div className="mt-4">
+                  {companies.map((company, index) => (
+                    <div key={index} className="border border-[#D0D5DD] p-4 rounded-md relative w-[343px] mt-4">
+                      <h3 className="text-sm font-semibold text-[#344054]">{company.name}</h3>
+                      <p>{company.code}</p>
+                      <Button
+                        variant="light"
+                        startContent={<PencilIcon className="h-4 w-4 text-[#344054]" />}
+                        className="absolute top-2 right-2 flex items-center gap-1 text-[#344054]"
+                        onClick={() => alert('Edit company clicked!')}
+                      >
+                        Edit
+                      </Button>
+                    </div>
+                  ))}
+
+                  {!showNewCompanyForm && (
+                    <Button
+                      variant="light"
+                      className="font-semibold mt-4 text-[#1D48E5]"
+                      endContent={<PlusIcon className="h-4 w-4 text-[#1D48E5]" />}
+                      onClick={() => setShowNewCompanyForm(true)}
+                    >
+                      Add new company
+                    </Button>
+                  )}
+
+                  {showNewCompanyForm && (
+                    <form onSubmit={handleSubmitCompany(onSubmitCompany)} className="mt-4">
+                    <div className="mt-4">
+                      <h3 className="text-sm font-semibold text-[#344054] mb-4">Add New Company</h3>
+                      <div className="mb-4">
+                        <Input
+                          {...registerCompany("newCompanyName")}
+                          placeholder="Company Name"
+                          fullWidth
+                          variant="bordered"
+                        />
+                      </div>
+                      <div className="mb-4">
+                        <Input
+                        {...registerCompany("newCompanyCode")}
+                          placeholder="Company Code"
+                          fullWidth
+                          variant="bordered"
+                        />
+                      </div>
+                      <Button type="submit" className="bg-[#1D48E5] text-white font-semibold"> Submit Company </Button>
+                      <Button variant="light" className="ml-4 bg-white border border-[#D0D5DD] text-[#344054] font-semibold" onClick={() => setShowNewCompanyForm(false)}>
+                        Cancel
+                      </Button>
+                      </div>
+                      </form>
+                  )}
                 </div>
-              ))}
-
-              {!showNewCompanyForm && (
-                <Button
-                  variant="light"
-                  className="font-semibold mt-4 text-[#1D48E5]"
-                  endContent={<PlusIcon className="h-4 w-4 text-[#1D48E5]" />}
-                  onClick={() => setShowNewCompanyForm(true)}
-                >
-                  Add new company
-                </Button>
-              )}
-
-              {showNewCompanyForm && (
-                <form onSubmit={handleSubmitCompany(onSubmitCompany)} className="mt-4">
-                  <h3 className="text-sm font-semibold text-[#344054] mb-4">Add New Company</h3>
-                  <div className="mb-4">
-                    <Input {...registerCompany("newCompanyName")} placeholder="Company Name" fullWidth variant="bordered" />
-                    {companyErrors.newCompanyName && <span className="text-red-500">{companyErrors.newCompanyName.message}</span>}
-                  </div>
-                  <div className="mb-4">
-                    <Input {...registerCompany("newCompanyCode")} placeholder="Company Code" fullWidth variant="bordered" />
-                    {companyErrors.newCompanyCode && <span className="text-red-500">{companyErrors.newCompanyCode.message}</span>}
-                  </div>
-                  <Button type="submit" className="bg-[#1D48E5] text-white font-semibold">Submit Company</Button>
-                  <Button
-                    variant="light"
-                     className=" ml-4 bg-white border border-[#D0D5DD] text-[#344054] font-semibold"
-                    onClick={() => setShowNewCompanyForm(false)}
-                  >
-                    Cancel
-                  </Button>
-                </form>
               )}
             </div>
           </div>
