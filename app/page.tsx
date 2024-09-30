@@ -7,6 +7,7 @@ import Sidebar from "@/components/Sidebar";
 import { Divider } from "@nextui-org/divider";
 import { Input, Button } from "@nextui-org/react";
 import { EnvelopeIcon, PhoneIcon, PencilIcon, PlusIcon } from "@heroicons/react/24/outline";
+import Link from "next/link";
 
 const personalInfoSchema = Yup.object().shape({
   firstName: Yup.string()
@@ -144,6 +145,15 @@ export default function Page() {
           </div>
           {personalErrors.email && <span className="text-red-500">{personalErrors.email.message}</span>}
 
+          <Divider className="my-6 bg-[#EAECF0]" />
+
+           {/* Password Section */}
+           <div className="flex items-start w-full mb-6 gap-[32px]">
+            <span className="text-[14px] font-semibold min-w-[200px]">Password</span>
+            <Link href="/" className="text-[14px] font-semibold text-[#1D48E5]">
+              Change password
+            </Link>
+          </div>
           <Divider className="my-6 bg-[#EAECF0]" />
 
           {/* Phone Section */}
