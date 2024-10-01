@@ -5,14 +5,13 @@ import * as yup from "yup";
 import { InferType } from "yup";
 import { Input, Button, Checkbox } from "@nextui-org/react";
 import { PencilIcon, PlusIcon } from "@heroicons/react/24/outline";
+import useTranslation from "@/hooks/useTranslation";
 
-// Validation schema
 const companySchema = yup.object().shape({
   newCompanyName: yup.string().required("Company name is required"),
   newCompanyCode: yup.string().required("Company code is required"),
 });
 
-// Type inference
 type CompanyFormInputs = InferType<typeof companySchema>;
 
 const CompanyForm = () => {
@@ -55,15 +54,17 @@ const CompanyForm = () => {
     setShowNewCompanyForm(true);
   };
 
+  const { t } = useTranslation();
+
   return (
     <div className="flex flex-col md:flex-row items-start w-full mb-6 gap-8 md:gap-8 md:mx-0">
-      <span className="text-[14px] font-semibold min-w-[200px]">Companies</span>
+      <span className="text-[14px] font-semibold min-w-[200px]">{ t.companies} </span>
       <div className="max-w-[343px] w-full">
         <Checkbox
           isSelected={isRepresentingCompany}
           onChange={() => setIsRepresentingCompany(!isRepresentingCompany)}
         >
-          Are you representing a company?
+          {t.compnayCheck}
         </Checkbox>
 
         {isRepresentingCompany && (
@@ -78,7 +79,7 @@ const CompanyForm = () => {
                   className="absolute top-2 right-2 flex items-center gap-1 text-[#344054]"
                   onClick={() => handleEditCompany(index)}
                 >
-                  Edit
+                  {t.edit}
                 </Button>
               </div>
             ))}
@@ -90,7 +91,7 @@ const CompanyForm = () => {
                 endContent={<PlusIcon className="h-4 w-4 text-[#1D48E5]" />}
                 onClick={() => setShowNewCompanyForm(true)}
               >
-                Add new company
+                {t.addNewCompany}
               </Button>
             )}
 
@@ -105,7 +106,7 @@ const CompanyForm = () => {
                     render={({ field }) => (
                       <Input
                         {...field}
-                        placeholder="Company Name"
+                        placeholder= {t.companyName}
                         fullWidth
                         variant="bordered"
                         isInvalid={!!companyErrors.newCompanyName}
@@ -122,7 +123,7 @@ const CompanyForm = () => {
                     render={({ field }) => (
                       <Input
                         {...field}
-                        placeholder="Company Code"
+                        placeholder= {t.companyCode}
                         fullWidth
                         variant="bordered"
                         isInvalid={!!companyErrors.newCompanyCode}
@@ -143,7 +144,7 @@ const CompanyForm = () => {
                     setEditingCompanyIndex(null); 
                   }}
                 >
-                  Cancel
+                  {t.cancel}
                 </Button>
               </div>
             )}

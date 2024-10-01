@@ -11,8 +11,8 @@ import { EnvelopeIcon, PhoneIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import AddressForm from "@/components/AddressForm";
 import CompanyForm from "@/components/CompanyForm";
+import useTranslation from "@/hooks/useTranslation";
 
-// Schema definition for personal info validation
 const personalInfoSchema = yup.object().shape({
   firstName: yup.string()
     .required("First name is required")
@@ -30,6 +30,7 @@ const personalInfoSchema = yup.object().shape({
 });
 
 type PersonalFormInputs = InferType<typeof personalInfoSchema>;
+
 
 export default function Page() {
   const {
@@ -49,6 +50,8 @@ export default function Page() {
     resetPersonal();
   };
 
+  const { t } = useTranslation();
+
   return (
     <div className="flex flex-col lg:flex-row">
       <Sidebar />
@@ -60,11 +63,11 @@ export default function Page() {
         {/* Personal Info Section */}
         <form onSubmit={handleSubmitPersonal(onSubmitPersonalInfo)}>
           <div className="flex flex-col lg:flex-row items-start w-full mb-6 gap-4 lg:gap-8">
-            <span className="text-[14px] font-semibold min-w-[200px]">Name</span>
+            <span className="text-[14px] font-semibold min-w-[200px]">  { t.name }  </span>
             <div className="flex flex-col lg:flex-row flex-1 gap-4 w-full"> 
               <Input
                 {...registerPersonal("firstName")}
-                placeholder="First Name"
+                placeholder={ t.firstName }
                 fullWidth
                 variant="bordered"
                 isInvalid={!!personalErrors.firstName}
@@ -73,7 +76,7 @@ export default function Page() {
               />
               <Input
                 {...registerPersonal("lastName")}
-                placeholder="Last Name"
+                placeholder={ t.lastName}
                 fullWidth
                 variant="bordered"
                 isInvalid={!!personalErrors.lastName}
@@ -87,10 +90,10 @@ export default function Page() {
 
           {/* Email Section */}
           <div className="flex flex-col lg:flex-row items-start w-full mb-6 gap-4 lg:gap-8">
-            <span className="text-[14px] font-semibold min-w-[200px]">Email address</span>
+            <span className="text-[14px] font-semibold min-w-[200px]">{ t.email }</span>
             <Input
               {...registerPersonal("email")}
-              placeholder="Email Address"
+              placeholder={ t.emailAddress }
               fullWidth
               variant="bordered"
               isInvalid={!!personalErrors.email}
@@ -104,20 +107,20 @@ export default function Page() {
 
           {/* Password Section */}
           <div className="flex flex-col lg:flex-row items-start w-full mb-6 gap-4 lg:gap-8">
-            <span className="text-[14px] font-semibold min-w-[200px]">Password</span>
+            <span className="text-[14px] font-semibold min-w-[200px]">{ t.password }</span>
             <Link href="/" className="text-[14px] font-semibold text-[#1D48E5]">
-              Change password
+            { t.changePassword }
             </Link>
           </div>
           <Divider className="my-6 bg-[#EAECF0]" />
 
           {/* Phone Section */}
           <div className="flex flex-col lg:flex-row items-start w-full mb-6 gap-4 lg:gap-8">
-            <span className="text-[14px] font-semibold min-w-[200px]">Phone number</span>
+            <span className="text-[14px] font-semibold min-w-[200px]">{ t.phoneNumber }</span>
             <Input
               {...registerPersonal("phone")}
               type="tel"
-              placeholder="Phone Number"
+              placeholder={ t.phoneNumber }
               fullWidth
               variant="bordered"
               isInvalid={!!personalErrors.phone}
@@ -130,19 +133,19 @@ export default function Page() {
 
           {/* Locale Section */}
           <div className="flex flex-col lg:flex-row items-start w-full mb-6 gap-4 lg:gap-8">
-            <span className="text-[14px] font-semibold min-w-[200px]">Locale</span>
+            <span className="text-[14px] font-semibold min-w-[200px]">{ t.locale }</span>
             <Select
               {...registerPersonal("locale")}
-              placeholder="Select locale"
+              placeholder={ t.selectLocale }
               aria-label="Select locale"
               className="flex-1"
               variant="bordered"
               isInvalid={!!personalErrors.locale}
               errorMessage={personalErrors.locale?.message}
             >
-              <SelectItem key="hu" value="HU">Hungarian (HU)</SelectItem>
-              <SelectItem key="ro" value="RO">Romanian (RO)</SelectItem>
-              <SelectItem key="en" value="EN">English (EN)</SelectItem>
+              <SelectItem key="hu" value="HU">{ t.hu }</SelectItem>
+              <SelectItem key="ro" value="RO">{ t.ro }</SelectItem>
+              <SelectItem key="en" value="EN">{ t.en }</SelectItem>
             </Select>
           </div>
 
@@ -157,13 +160,13 @@ export default function Page() {
             <Button
               className="bg-white border border-[#D0D5DD] text-[#344054] font-semibold"
             >
-              Cancel
+              { t.cancel }
             </Button>
             <Button
               type="submit"
               className="bg-[#1D48E5] text-white font-semibold"
             >
-              Save changes
+              { t.saveChanges }
             </Button>
           </div>
         </form>

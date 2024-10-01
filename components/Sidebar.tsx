@@ -1,9 +1,10 @@
 import { Avatar, Button } from "@nextui-org/react";
 import { UserCircleIcon, ClockIcon, ArrowLeftEndOnRectangleIcon } from "@heroicons/react/24/outline";
+import useTranslation from "@/hooks/useTranslation";
 
 const Sidebar = () => {
+  const { t } = useTranslation();
   return (
-    // Hide sidebar on small screens, show on large screens (lg and up)
     <div className="hidden lg:block w-[312px] h-screen p-6 flex flex-col items-start">
       <Avatar
         src="https://i.pravatar.cc/150?u=a04258114e29026708c"
@@ -19,7 +20,7 @@ const Sidebar = () => {
               className="flex items-center gap-2 text-[#344054] w-full justify-start text-[14px] font-semibold"
               onClick={() => window.open("#", "_blank")}
             >
-              Account Details
+              {t.accountDetails}
             </Button>
           </li>
           <li>
@@ -29,7 +30,7 @@ const Sidebar = () => {
               className="flex items-center gap-2 text-[#344054] w-full justify-start text-[14px] font-semibold"
               onClick={() => window.open("#", "_blank")}
             >
-              Order History
+              {t.orderHistory}
             </Button>
           </li>
           <li>
@@ -39,7 +40,7 @@ const Sidebar = () => {
               className="flex items-center gap-2 text-[#344054] w-full justify-start text-[14px] font-semibold"
               onClick={() => window.open("#", "_blank")}
             >
-              Logout
+              {t.logout}
             </Button>
           </li>
         </ul>

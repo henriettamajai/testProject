@@ -5,8 +5,8 @@ import * as yup from "yup";
 import { InferType } from "yup";
 import { Input, Button } from "@nextui-org/react";
 import { PencilIcon, PlusIcon } from "@heroicons/react/24/outline";
+import useTranslation from "@/hooks/useTranslation";
 
-// Validation schema
 const addressSchema = yup.object().shape({
   newAddressCountry: yup.string().required("Country is required"),
   newAddressCity: yup.string().required("City is required"),
@@ -15,7 +15,6 @@ const addressSchema = yup.object().shape({
   newAddressStreet: yup.string().required("Street is required"),
 });
 
-// Type inference
 type AddressFormInputs = InferType<typeof addressSchema>;
 
 const AddressForm = () => {
@@ -68,13 +67,15 @@ const AddressForm = () => {
     setShowNewAddressForm(true);
   };
 
+  const { t } = useTranslation();
+
   return (
     <div className="flex flex-col md:flex-row items-start w-full mb-6 gap-8 md:gap-8 md:mx-0">
-      <span className="text-[14px] font-semibold min-w-[200px]">Addresses</span>
+      <span className="text-[14px] font-semibold min-w-[200px]">{t.addresses}</span>
       <div className="max-w-[343px] w-full">
         {addresses.map((address, index) => (
           <div key={index} className="border border-[#D0D5DD] p-4 rounded-md relative mb-4">
-            <h3 className="text-sm font-semibold text-[#344054]">Address {index + 1}</h3>
+            <h3 className="text-sm font-semibold text-[#344054]">{t.address} {index + 1}</h3>
             <p>{address.country}</p>
             <p>{address.city}</p>
             <p>{address.county}</p>
@@ -86,7 +87,7 @@ const AddressForm = () => {
               className="absolute top-2 right-2 flex items-center gap-1 text-[#344054]"
               onClick={() => handleEditAddress(index)} 
             >
-              Edit
+              {t.edit}
             </Button>
           </div>
         ))}
@@ -98,13 +99,13 @@ const AddressForm = () => {
             endContent={<PlusIcon className="h-4 w-4 text-[#1D48E5]" />}
             onClick={() => setShowNewAddressForm(true)}
           >
-            Add new address
+            {t.addNewAddress}
           </Button>
         )}
 
         {showNewAddressForm && (
           <div className="mt-4">
-            <h3 className="text-sm font-semibold text-[#344054] mb-4">{editingAddressIndex !== null ? "Edit Address" : "Add New Address"}</h3>
+            <h3 className="text-sm font-semibold text-[#344054] mb-4">{editingAddressIndex !== null ? "Edit Address" : "Add new address"}</h3>
             <div className="mb-4">
               <Controller
                 control={control}
@@ -112,7 +113,7 @@ const AddressForm = () => {
                 render={({ field }) => (
                   <Input
                     {...field}
-                    placeholder="Country"
+                    placeholder={t.country}
                     fullWidth
                     variant="bordered"
                     isInvalid={!!addressErrors.newAddressCountry}
@@ -128,7 +129,7 @@ const AddressForm = () => {
                 render={({ field }) => (
                   <Input
                     {...field}
-                    placeholder="City"
+                    placeholder={t.city}
                     fullWidth
                     variant="bordered"
                     isInvalid={!!addressErrors.newAddressCity}
@@ -144,7 +145,7 @@ const AddressForm = () => {
                 render={({ field }) => (
                   <Input
                     {...field}
-                    placeholder="County"
+                    placeholder={t.county}
                     fullWidth
                     variant="bordered"
                     isInvalid={!!addressErrors.newAddressCounty}
@@ -160,7 +161,7 @@ const AddressForm = () => {
                 render={({ field }) => (
                   <Input
                     {...field}
-                    placeholder="Postal Code"
+                    placeholder={t.postalCode}
                     fullWidth
                     variant="bordered"
                     isInvalid={!!addressErrors.newAddressPostalCode}
@@ -176,7 +177,7 @@ const AddressForm = () => {
                 render={({ field }) => (
                   <Input
                     {...field}
-                    placeholder="Street"
+                    placeholder={t.street}
                     fullWidth
                     variant="bordered"
                     isInvalid={!!addressErrors.newAddressStreet}
@@ -196,7 +197,7 @@ const AddressForm = () => {
                 setEditingAddressIndex(null); 
               }}
             >
-              Cancel
+              {t.cancel}
             </Button>
           </div>
         )}
