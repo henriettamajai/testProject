@@ -1,16 +1,18 @@
 import React, { useState } from "react";
-import { Controller, useForm, SubmitHandler} from "react-hook-form";
+import { Controller, useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { InferType } from "yup";
 import { Input, Button, Checkbox } from "@nextui-org/react";
 import { PencilIcon, PlusIcon } from "@heroicons/react/24/outline";
 
+// Validation schema
 const companySchema = yup.object().shape({
   newCompanyName: yup.string().required("Company name is required"),
   newCompanyCode: yup.string().required("Company code is required"),
 });
 
+// Type inference
 type CompanyFormInputs = InferType<typeof companySchema>;
 
 const CompanyForm = () => {
@@ -34,7 +36,6 @@ const CompanyForm = () => {
 
   const onSubmitCompany: SubmitHandler<CompanyFormInputs> = (data) => {
     if (editingCompanyIndex !== null) {
-      
       const updatedCompanies = [...companies];
       updatedCompanies[editingCompanyIndex] = { name: data.newCompanyName, code: data.newCompanyCode };
       setCompanies(updatedCompanies);
@@ -55,9 +56,9 @@ const CompanyForm = () => {
   };
 
   return (
-    <div className="flex items-start w-full mb-6 gap-[32px]">
+    <div className="flex flex-col md:flex-row items-start w-full mb-6 gap-8 md:gap-8 md:mx-0">
       <span className="text-[14px] font-semibold min-w-[200px]">Companies</span>
-      <div>
+      <div className="max-w-[343px] w-full">
         <Checkbox
           isSelected={isRepresentingCompany}
           onChange={() => setIsRepresentingCompany(!isRepresentingCompany)}
@@ -68,7 +69,7 @@ const CompanyForm = () => {
         {isRepresentingCompany && (
           <div className="mt-4">
             {companies.map((company, index) => (
-              <div key={index} className="border border-[#D0D5DD] p-4 rounded-md relative w-[343px] mt-4">
+              <div key={index} className="border border-[#D0D5DD] p-4 rounded-md relative mb-4">
                 <h3 className="text-sm font-semibold text-[#344054]">{company.name}</h3>
                 <p>{company.code}</p>
                 <Button
@@ -131,9 +132,8 @@ const CompanyForm = () => {
                   />
                 </div>
                 
-                <Button type="submit" className="bg-[#1D48E5] text-white font-semibold" onClick={ handleSubmit(onSubmitCompany)}>
+                <Button type="submit" className="bg-[#1D48E5] text-white font-semibold" onClick={handleSubmit(onSubmitCompany)}>
                   {editingCompanyIndex !== null ? "Update Company" : "Submit Company"}
-                  
                 </Button>
                 <Button
                   variant="light"

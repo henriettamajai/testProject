@@ -1,17 +1,18 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import Sidebar from "@/components/Sidebar";
 import { Divider } from "@nextui-org/divider";
 import { InferType } from "yup";
-import { Input, Button,Select, SelectItem } from "@nextui-org/react";
+import { Input, Button, Select, SelectItem } from "@nextui-org/react";
 import { EnvelopeIcon, PhoneIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
-import AddressForm  from "@/components/AddressForm";
+import AddressForm from "@/components/AddressForm";
 import CompanyForm from "@/components/CompanyForm";
 
+// Schema definition for personal info validation
 const personalInfoSchema = yup.object().shape({
   firstName: yup.string()
     .required("First name is required")
@@ -27,6 +28,7 @@ const personalInfoSchema = yup.object().shape({
   locale: yup.string()
     .required("Locale is required"),
 });
+
 type PersonalFormInputs = InferType<typeof personalInfoSchema>;
 
 export default function Page() {
@@ -42,31 +44,32 @@ export default function Page() {
     },
   });
 
-  const onSubmitPersonalInfo = (data : PersonalFormInputs) => {
+  const onSubmitPersonalInfo = (data: PersonalFormInputs) => {
     console.log("Personal Info:", data);
     resetPersonal();
   };
 
   return (
-    <div className="flex">
+    <div className="flex flex-col lg:flex-row">
       <Sidebar />
-      <div className="flex-1 p-8">
+      <div className="flex-1 p-4 lg:p-8 sm:px-4 md:px-8 lg:px-16"> 
         <h2 className="text-2xl font-bold mb-2">Personal Info</h2>
         <p>Update your personal details here.</p>
         <Divider className="my-6 bg-[#EAECF0]" />
 
         {/* Personal Info Section */}
         <form onSubmit={handleSubmitPersonal(onSubmitPersonalInfo)}>
-          <div className="flex items-start w-full mb-6 gap-[32px]">
+          <div className="flex flex-col lg:flex-row items-start w-full mb-6 gap-4 lg:gap-8">
             <span className="text-[14px] font-semibold min-w-[200px]">Name</span>
-            <div className="flex flex-1 gap-[32px]">
-            <Input
+            <div className="flex flex-col lg:flex-row flex-1 gap-4 w-full"> 
+              <Input
                 {...registerPersonal("firstName")}
                 placeholder="First Name"
                 fullWidth
                 variant="bordered"
                 isInvalid={!!personalErrors.firstName}
                 errorMessage={personalErrors.firstName?.message}
+                className="flex-1" 
               />
               <Input
                 {...registerPersonal("lastName")}
@@ -75,6 +78,7 @@ export default function Page() {
                 variant="bordered"
                 isInvalid={!!personalErrors.lastName}
                 errorMessage={personalErrors.lastName?.message}
+                className="flex-1" 
               />
             </div>
           </div>
@@ -82,7 +86,7 @@ export default function Page() {
           <Divider className="my-6 bg-[#EAECF0]" />
 
           {/* Email Section */}
-          <div className="flex items-start w-full mb-6 gap-[32px]">
+          <div className="flex flex-col lg:flex-row items-start w-full mb-6 gap-4 lg:gap-8">
             <span className="text-[14px] font-semibold min-w-[200px]">Email address</span>
             <Input
               {...registerPersonal("email")}
@@ -92,13 +96,14 @@ export default function Page() {
               isInvalid={!!personalErrors.email}
               errorMessage={personalErrors.email?.message}
               startContent={<EnvelopeIcon className="h-5 w-5 text-[#667085] pointer-events-none flex-shrink-0" />}
+              className="flex-1" 
             />
           </div>
 
           <Divider className="my-6 bg-[#EAECF0]" />
 
-           {/* Password Section */}
-           <div className="flex items-start w-full mb-6 gap-[32px]">
+          {/* Password Section */}
+          <div className="flex flex-col lg:flex-row items-start w-full mb-6 gap-4 lg:gap-8">
             <span className="text-[14px] font-semibold min-w-[200px]">Password</span>
             <Link href="/" className="text-[14px] font-semibold text-[#1D48E5]">
               Change password
@@ -107,7 +112,7 @@ export default function Page() {
           <Divider className="my-6 bg-[#EAECF0]" />
 
           {/* Phone Section */}
-          <div className="flex items-start w-full mb-6 gap-[32px]">
+          <div className="flex flex-col lg:flex-row items-start w-full mb-6 gap-4 lg:gap-8">
             <span className="text-[14px] font-semibold min-w-[200px]">Phone number</span>
             <Input
               {...registerPersonal("phone")}
@@ -118,12 +123,13 @@ export default function Page() {
               isInvalid={!!personalErrors.phone}
               errorMessage={personalErrors.phone?.message}
               startContent={<PhoneIcon className="h-5 w-5 text-[#667085] pointer-events-none flex-shrink-0" />}
+              className="flex-1" 
             />
           </div>
           <Divider className="my-6 bg-[#EAECF0]" />
 
           {/* Locale Section */}
-          <div className="flex items-start w-full mb-6 gap-[32px]">
+          <div className="flex flex-col lg:flex-row items-start w-full mb-6 gap-4 lg:gap-8">
             <span className="text-[14px] font-semibold min-w-[200px]">Locale</span>
             <Select
               {...registerPersonal("locale")}
@@ -142,22 +148,24 @@ export default function Page() {
 
           <Divider className="my-6 bg-[#EAECF0]" />
 
+          {/* Address and Company Forms */}
           <AddressForm />
           <CompanyForm />
-          
-          <div className="flex justify-end mt-6 space-x-4">
-          <Button
-            className="bg-white border border-[#D0D5DD] text-[#344054] font-semibold"
+
+          {/* Buttons */}
+          <div className="flex flex-col sm:flex-row justify-end mt-6 gap-4">
+            <Button
+              className="bg-white border border-[#D0D5DD] text-[#344054] font-semibold"
             >
-            Cancel
-          </Button>
-          <Button
-            type="submit"
-            className="bg-[#1D48E5] text-white font-semibold"
-          >
-            Save changes
-          </Button>
-        </div>
+              Cancel
+            </Button>
+            <Button
+              type="submit"
+              className="bg-[#1D48E5] text-white font-semibold"
+            >
+              Save changes
+            </Button>
+          </div>
         </form>
       </div>
     </div>

@@ -3,7 +3,8 @@ import { UserCircleIcon, ClockIcon, ArrowLeftEndOnRectangleIcon } from "@heroico
 
 const Sidebar = () => {
   return (
-    <div className="w-[312px] h-screen p-6 flex flex-col items-start">
+    // Hide sidebar on small screens, show on large screens (lg and up)
+    <div className="hidden lg:block w-[312px] h-screen p-6 flex flex-col items-start">
       <Avatar
         src="https://i.pravatar.cc/150?u=a04258114e29026708c"
         className="w-20 h-20"

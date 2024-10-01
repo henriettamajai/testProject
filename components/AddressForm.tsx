@@ -1,14 +1,12 @@
-"use client";
-
 import React, { useState } from "react";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { InferType } from "yup";
-import { Divider } from "@nextui-org/divider";
 import { Input, Button } from "@nextui-org/react";
 import { PencilIcon, PlusIcon } from "@heroicons/react/24/outline";
 
+// Validation schema
 const addressSchema = yup.object().shape({
   newAddressCountry: yup.string().required("Country is required"),
   newAddressCity: yup.string().required("City is required"),
@@ -17,6 +15,7 @@ const addressSchema = yup.object().shape({
   newAddressStreet: yup.string().required("Street is required"),
 });
 
+// Type inference
 type AddressFormInputs = InferType<typeof addressSchema>;
 
 const AddressForm = () => {
@@ -53,7 +52,7 @@ const AddressForm = () => {
     } else {
       setAddresses((prevAddresses) => [...prevAddresses, newAddress]);
     }
-  
+
     resetAddress();
     setShowNewAddressForm(false);
   };
@@ -70,11 +69,11 @@ const AddressForm = () => {
   };
 
   return (
-    <div className="flex items-start w-full mb-6 gap-[32px]">
+    <div className="flex flex-col md:flex-row items-start w-full mb-6 gap-8 md:gap-8 md:mx-0">
       <span className="text-[14px] font-semibold min-w-[200px]">Addresses</span>
-      <div>
+      <div className="max-w-[343px] w-full">
         {addresses.map((address, index) => (
-          <div key={index} className="border border-[#D0D5DD] p-4 rounded-md relative w-[343px] mb-4">
+          <div key={index} className="border border-[#D0D5DD] p-4 rounded-md relative mb-4">
             <h3 className="text-sm font-semibold text-[#344054]">Address {index + 1}</h3>
             <p>{address.country}</p>
             <p>{address.city}</p>
@@ -186,7 +185,7 @@ const AddressForm = () => {
                 )}
               />
             </div>
-            <Button type="submit" className="bg-[#1D48E5] text-white font-semibold" onClick={ handleSubmitAddress(onSubmitAddress)}>
+            <Button type="submit" className="bg-[#1D48E5] text-white font-semibold" onClick={handleSubmitAddress(onSubmitAddress)}>
               {editingAddressIndex !== null ? "Update Address" : "Submit Address"}
             </Button>
             <Button
@@ -202,7 +201,6 @@ const AddressForm = () => {
           </div>
         )}
       </div>
-      <Divider className="my-6 bg-[#EAECF0]" />
     </div>
   );
 };
